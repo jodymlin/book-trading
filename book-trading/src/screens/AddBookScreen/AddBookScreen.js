@@ -8,15 +8,18 @@ import { AntDesign } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
   textInputWrapper: {
-    paddingTop: 16
+    paddingBottom: 24,
+    paddingLeft: 12,
+    paddingRight: 12
   },
   inputText: {
     fontFamily: "OpenSans_400Regular",
-    fontSize: 22
+    fontSize: 18,
+    paddingTop: 8,
   },
   inputHeader: {
-    fontFamily: "OpenSans_400Regular",
-    fontSize: 16
+    fontFamily: "OpenSans_600SemiBold",
+    fontSize: 20,
   },
   conditionWrapper: {
     padding: 16,
@@ -29,10 +32,20 @@ function BookInfoScreen({ navigation, userData, ...props }) {
   const [ titleText, setTitleText ] = useState('');
   const [ authorText, setAuthorText ] = useState('');
   const [ condition, setCondition ] = useState('');
+  const [ submissionError, setSubmissionError ] = useState(false);
 
   const conditions = [ "Used", "Good", "Very Good", "New" ];
 
   const addToDatabase = async () => {
+    // prevent user from submitting empty data
+    setTitleText(titleText.trim());
+    setAuthorText(authorText.trim());
+    setCondition(condition.trim());
+    if (titleText === '' || authorText === '' || condition === '') {
+      setSubmissionError(true);
+      return;
+    }
+
     console.log(`Add a Book: Add book pressed! Title: ${titleText}, Author: ${authorText}, Condition: ${condition}`);
     const db = firebase.firestore()
     let books = []
@@ -132,6 +145,19 @@ function BookInfoScreen({ navigation, userData, ...props }) {
           source={require('../../../assets/book.png')}
         />
       </View>
+
+      {submissionError ? 
+        <Text
+          style={{
+            fontFamily: "OpenSans_400Regular",
+            color: "#F5788E",
+            textAlign: "center",
+            fontSize: 16
+          }}
+        >
+          All fields must be filled
+        </Text> : 
+        null}
       {/* Title Text Input */}
       <View
         style={styles.textInputWrapper}
@@ -182,7 +208,8 @@ function BookInfoScreen({ navigation, userData, ...props }) {
         <View style={styles.conditionWrapper}>
           {conditions.map(choice => <TouchableOpacity 
               style={{
-                borderColor: '#FFE15C',
+                borderColor: '#FCABD8',
+                backgroundColor: condition === choice ? '#FCABD8' : '#00000000',
                 borderRadius: 20,
                 borderWidth: condition === choice ? 2 : 0,
                 padding: 8
@@ -192,8 +219,8 @@ function BookInfoScreen({ navigation, userData, ...props }) {
             >
             <Text
               style={{
-                fontFamily: "OpenSans_400Regular",
-                color: condition === choice ?  'black' : 'grey'
+                fontFamily: "OpenSans_600SemiBold",
+                color: condition === choice ?  'white' : 'grey'
               }}
             >
               {choice}
