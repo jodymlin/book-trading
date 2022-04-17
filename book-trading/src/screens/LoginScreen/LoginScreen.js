@@ -45,7 +45,12 @@ export default function LoginScreen({navigation}) {
                 style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="never">
                 <Image
-                    style={styles.logo}
+                    style={{
+                        width: 150,
+                        height: 150,
+                        resizeMode: 'center',
+                        alignSelf: 'center'
+                    }}
                     source={require('../../../assets/icon.png')}
                 />
                 <TextInput
