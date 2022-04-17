@@ -11,7 +11,8 @@ function BookTile (props){
             <View style={styles.bookTileContainer}>
                 <Image style={styles.image} source={require('../../assets/book.png')}/>
                 <View style={styles.infoContainer}>
-                    <Text style = {styles.titleText}>{props.title}</Text>
+                <Text style={styles.titleText}
+                >{props.title}</Text>
                     <Text style = {styles.authorText}>{props.author}</Text>
                     <Text style = {styles.availableText}>{props.available} available</Text>
                 </View>
@@ -22,30 +23,35 @@ function BookTile (props){
 
 const styles = StyleSheet.create({
     bookTileContainer: {
+        padding: 24,
         flexDirection: 'row', 
         alignItems: 'center',
         justifyContent: 'space-around',
         width: "100%",
+        // borderBottomColor: 'rgba(0, 0, 0, 0.6)',
+        // borderBottomWidth: 2
     },
     infoContainer: {
         width: "65%",
         alignItems: 'center',
     },
     titleText: {
-        fontWeight: 'bold',
-        fontSize: 16,
+        fontFamily: "OpenSans_600SemiBold",
+        fontSize: 18,
         textAlign: 'center',
         lineHeight: 22,
     },
     authorText: {
-        fontSize: 14,
+        fontFamily: "OpenSans_400Regular",
+        fontSize: 16,
         textAlign: 'center',
-        paddingBottom: 10,
+        paddingBottom: 10
     },
     availableText: {
-        fontSize: 12,
+        fontSize: 14,
         textAlign: 'center',
         color: 'rgba(0, 0, 0, 0.6)',
+        fontFamily: "OpenSans_400Regular"
     },
     image: {
         width: 100,
