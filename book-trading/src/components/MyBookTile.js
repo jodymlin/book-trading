@@ -6,18 +6,14 @@ import { Feather } from '@expo/vector-icons';
 function MyBookTile (props){
     return (
         <View style={styles.bookTileContainer}> 
-        <TouchableOpacity
-            onPress={() => {}}
-        >
-            <View style={styles.bookInfoContainer}>
-                <Image style={styles.image} source={require('../../assets/book.png')}/>
-                <View style={styles.infoContainer}>
-                    <Text style = {styles.titleText}>{props.title}</Text>
-                    <Text style = {styles.authorText}>{props.author}</Text>
-                    <Text style = {styles.conditionText}>Condition: {props.condition}</Text>
-                </View>
+        <View style={styles.bookInfoContainer}>
+            <Image style={styles.image} source={require('../../assets/book.png')}/>
+            <View style={styles.infoContainer}>
+                <Text style = {styles.titleText}>{props.title}</Text>
+                <Text style = {styles.authorText}>{props.author}</Text>
+                <Text style = {styles.conditionText}>Condition: {props.condition}</Text>
             </View>
-        </TouchableOpacity>
+        </View>
         <TouchableOpacity
             style={styles.deleteButton}
             onPress={() => {console.log("My Books: Delete Book!")}}
