@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, Image, TextInput, StyleSheet } from 'reac
 import ScreenContainer from '../../components/ScreenContainer.js';
 import ScreenTitle from '../../components/ScreenTitle.js';
 import { Feather } from '@expo/vector-icons';
+import { firebase } from '../../firebase/config'
 
 const styles = StyleSheet.create({
   textInputWrapper: {
@@ -31,6 +32,73 @@ function BookInfoScreen() {
 
   const conditions = [ "Used", "Good", "Very Good", "New" ];
 
+  const addToDatabase = async () => {
+    console.log(`Add a Book: Add book pressed! Title: ${titleText}, Author: ${authorText}, Condition: ${condition}`);
+    const db = firebase.firestore()
+    let books = []
+    let bid = 0
+    let lid = 0
+    let querySnapshot= await db.collection("books")
+                              .where("bname", "==", titleText)
+                              .get()
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      books.push(doc.data());
+    });
+    console.log(books)
+    if (books.length == 0)
+    {
+      let newBook = db.collection("books").doc()
+      let newListing = db.collection("listings").doc()
+
+      bid = newBook.id
+      lid = newListing.id
+
+      const bookData = {
+        author: authorText,
+        bid,
+        bname: titleText,
+        listings: [lid]
+      }
+
+      const listData = {
+        author: authorText,
+        bid,
+        bname: titleText,
+        condition,
+        lid,
+        uid: 1
+      }
+
+      newListing.set(listData)
+      newBook.set(bookData)
+    }
+    else
+    {
+      bid = books[0].bid
+      console.log(bid)
+
+      let newListing = db.collection("listings").doc()
+      lid = newListing.id
+
+      const listData = {
+        author: authorText,
+        bid,
+        bname: titleText,
+        condition,
+        lid,
+        uid: 1
+      }
+
+      newListing.set(listData)
+
+      let book = db.collection("books").doc(bid)
+      book.update({
+        listings: firebase.firestore.FieldValue.arrayUnion(lid)
+      })
+    }
+  }
+
   return (
     <ScreenContainer>
       <View
@@ -41,9 +109,7 @@ function BookInfoScreen() {
       >
         <ScreenTitle>Add a Book</ScreenTitle>
         <TouchableOpacity
-          onPress={() => {
-            console.log(`Add a Book: Add book pressed! Title: ${titleText}, Author: ${authorText}, Condition: ${condition}`);
-          }}
+          onPress={addToDatabase}
         >
           <Feather name="check" size={32} color="black" />
         </TouchableOpacity>
