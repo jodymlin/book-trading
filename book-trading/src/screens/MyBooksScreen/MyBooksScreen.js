@@ -7,40 +7,6 @@ import MyBookTile from '../../components/MyBookTile';
 import ItemDivider from '../../components/ItemDivider';
 import { firebase } from "../../firebase/config";
 
-const books = [
-
-  {
-    title: "Atomic Habits",
-    author: "James Clear",
-    condition: "New"
-  }, 
-  {
-    title: "Why We Sleep",
-    author: "Matthew Walker",
-    condition: "Used"
-  }, 
-  {
-    title: "Harry Potter and the Prisoner of Azkaban",
-    author: "J.K. Rowling",
-    condition: "Very Good"
-  }, 
-  {
-    title: "Nothing to Envy: Ordinary Lives in North Korea",
-    author: "Barbara Demick",
-    condition: "Used"
-  },
-  {
-    title: "Stinky Poopy: A Memoir",
-    author: "Eugene Lo",
-    condition: "New"
-  },
-  {
-    title: "Testing: A Memoir",
-    author: "ahhhh",
-    condition: "Good"
-  }
-];
-
 function MyBooksScreen({navigation, userData, ...props}) {
   let [ listings, setListings ] = useState([])
   
@@ -83,7 +49,7 @@ function MyBooksScreen({navigation, userData, ...props}) {
             </Text>
           </Text>
         </View> : 
-        <FlatList 
+        <FlatList
           showsVerticalScrollIndicator={false}
           data={listings}
           keyExtractor={item => item.lid}
@@ -95,6 +61,8 @@ function MyBooksScreen({navigation, userData, ...props}) {
           />}
         />        
       }
+
+      <View style={{ height: 60 }}/>
     </ScreenContainer>
   )
 }
