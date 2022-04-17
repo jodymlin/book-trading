@@ -40,7 +40,7 @@ const books = [
   }
 ];
 
-function MyBooksScreen() {
+function MyBooksScreen({ userData, navigation }) {
   return (
     <ScreenContainer>
       <View
@@ -51,7 +51,7 @@ function MyBooksScreen() {
       >
         <ScreenTitle>My Books</ScreenTitle>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => navigation.navigate('AddBook')}
         >
           <Feather name="plus" size={32} color="black" />
         </TouchableOpacity>

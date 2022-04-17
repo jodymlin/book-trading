@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Feather } from '@expo/vector-icons';
 
 import { LoginScreen, HomeScreen, RegistrationScreen } from './src/screens'
 import { firebase } from './src/firebase/config'
@@ -29,9 +30,9 @@ import { OpenSans_300Light,
 
 import BookSearchScreen from './src/screens/BookSearchScreen/BookSearchScreen.js';
 import BookInfoScreen from './src/screens/BookInfoScreen/BookInfoScreen';
-import BooksOwnedScreen from './src/screens/BooksOwnedScreen/BooksOwnedScreen';
+import MyBooksScreen from './src/screens/MyBooksScreen/MyBooksScreen.js';
 import AddBookScreen from './src/screens/AddBookScreen/AddBookScreen.js';
-import ProfileScreen from './src/screens/ProfileScreen/ProfileScreen';
+import ProfileScreen from './src/screens/ProfileScreen/ProfileScreen.js';
 const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -55,7 +56,7 @@ function MyBookStack({ userData }) {
   return (
     <BookStack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="BooksOwned">
-        {props => <BooksOwnedScreen {...props} userData={userData} />}
+        {props => <MyBooksScreen {...props} userData={userData} />}
       </Stack.Screen>
       <Stack.Screen name="AddBook">
         {props => <AddBookScreen {...props} userData={userData} />}
@@ -66,14 +67,26 @@ function MyBookStack({ userData }) {
 
 function MyTabs({ userData }) {
   return (
-    <Tab.Navigator screenOptions={{headerShown: true, tabBarShowLabel: false}}>
-      <Tab.Screen name="BookSearch" >
+    <Tab.Navigator screenOptions={{headerShown: false, tabBarShowLabel: false}}>
+      <Tab.Screen name="BookSearch" options={{
+        tabBarIcon: ({focused, color, size}) => (
+          <Feather name="search" size={24} color={focused ? "black" : "rgba(0, 0, 0, 0.3)"} />
+        )
+      }}>
         {props => <MySearchStack {...props} userData={userData} />}
       </Tab.Screen>
-      <Tab.Screen name="MyBookStack" >
+      <Tab.Screen name="MyBookStack" options={{
+        tabBarIcon: ({focused, color, size}) => (
+          <Feather name="book" size={24} color={focused ? "black" : "rgba(0, 0, 0, 0.3)"} />
+        )
+      }}>
         {props => <MyBookStack {...props} userData={userData} />}
       </Tab.Screen>
-      <Tab.Screen name="Profile" >
+      <Tab.Screen name="Profile" options={{
+        tabBarIcon: ({focused, color, size}) => (
+          <Feather name="user" size={24} color={focused ? "black" : "rgba(0, 0, 0, 0.3)"} />
+        )
+      }}>
         {props => <ProfileScreen {...props} userData={userData} />}
       </Tab.Screen>
     </Tab.Navigator>

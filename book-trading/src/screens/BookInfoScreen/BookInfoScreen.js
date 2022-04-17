@@ -1,6 +1,5 @@
-import { React } from 'react';
+import { React, useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import ScreenContainer from '../../components/ScreenContainer.js';
 import ScreenTitle from '../../components/ScreenTitle.js';
 import BookOwnerProfileList from '../../components/BookOwnerProfileList.js';
@@ -24,21 +23,19 @@ function BookInfoScreen({navigation, userData, ...props }) {
         });
       }, []);
     return(
-        <SafeAreaView>
-            <ScreenContainer> 
-                <TouchableOpacity
-                    onPress={() => {navigation.goBack()}}
-                >
-                    <AntDesign name="arrowleft" size={24} color="black" />
-                </TouchableOpacity>
-                <View style={styles.container}>
-                    <ScreenTitle>{bookData.bname}</ScreenTitle>
-                    <Text style={styles.text}>{bookData.author}</Text>
-                    <Image style={styles.image} source={require("../../../assets/book.png")}/>
-                </View>
-                <BookOwnerProfileList listings={bookData.listings} />
-            </ScreenContainer>
-        </SafeAreaView>
+        <ScreenContainer> 
+            <TouchableOpacity
+                onPress={() => {navigation.goBack()}}
+            >
+                <AntDesign name="arrowleft" size={24} color="black" />
+            </TouchableOpacity>
+            <View style={styles.container}>
+                <ScreenTitle>{bookData.bname}</ScreenTitle>
+                <Text style={styles.text}>{bookData.author}</Text>
+                <Image style={styles.image} source={require("../../../assets/book.png")}/>
+            </View>
+            <BookOwnerProfileList listings={bookData.listings} />
+        </ScreenContainer>
     );
 };
 

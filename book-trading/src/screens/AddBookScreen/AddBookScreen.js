@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, Image, TextInput, StyleSheet } from 'reac
 
 import ScreenContainer from '../../components/ScreenContainer.js';
 import ScreenTitle from '../../components/ScreenTitle.js';
-import { Feather } from '@expo/vector-icons';
 import { firebase } from '../../firebase/config'
 import { AntDesign } from '@expo/vector-icons'; 
 
@@ -109,13 +108,12 @@ function BookInfoScreen({ navigation, userData, ...props }) {
           justifyContent: "space-between"
         }}
       >
-        <TouchableOpacity onPress={() => navigation.goBack()} ><AntDesign name="back" size={24} color="black" /></TouchableOpacity>
-        <ScreenTitle>Add a Book</ScreenTitle>
-        <TouchableOpacity
-          onPress={addToDatabase}
-        >
-          <Feather name="check" size={32} color="black" />
+        <TouchableOpacity onPress={() => navigation.goBack()} >
+          <AntDesign name="arrowleft" size={24} color="black" />
         </TouchableOpacity>
+        <ScreenTitle>Add a Book</ScreenTitle>
+        {/* Empty view to create spacing effect we want*/}
+        <View />
       </View>
 
       <View
@@ -203,7 +201,34 @@ function BookInfoScreen({ navigation, userData, ...props }) {
           </TouchableOpacity>)
           }
         </View>
-        
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 16
+          }}
+        >
+          <TouchableOpacity
+              onPress={addToDatabase}
+              style={{
+                borderColor: '#84CAE7',
+                borderWidth: 2,
+                borderRadius: 24,
+                backgroundColor: "#84CAE7",
+                padding: 8,
+                width: 80,
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: 'center',
+                  color: "white",
+                  fontSize: 20,
+                  fontFamily: "OpenSans_400Regular",
+                }}
+              >save</Text>
+            </TouchableOpacity>
+          </View>
       </View>
     </ScreenContainer>
   );
