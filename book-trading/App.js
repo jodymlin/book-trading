@@ -42,25 +42,25 @@ const BookStack = createStackNavigator();
 
 function MySearchStack({ userData }) {
   return (
-    <BookStack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="BookBrowse">
+    <SearchStack.Navigator screenOptions={{headerShown: false}}>
+      <SearchStack.Screen name="BookBrowse">
         {props => <BookSearchScreen {...props} userData={userData} />}
-      </Stack.Screen>
-      <Stack.Screen name="BookInfo">
+      </SearchStack.Screen>
+      <SearchStack.Screen name="BookInfo">
         {props => <BookInfoScreen {...props} userData={userData} />}
-      </Stack.Screen>
-    </BookStack.Navigator>
+      </SearchStack.Screen>
+    </SearchStack.Navigator>
   )
 }
 function MyBookStack({ userData }) {
   return (
     <BookStack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="BooksOwned">
+      <BookStack.Screen name="BooksOwned">
         {props => <MyBooksScreen {...props} userData={userData} />}
-      </Stack.Screen>
-      <Stack.Screen name="AddBook">
+      </BookStack.Screen>
+      <BookStack.Screen name="AddBook">
         {props => <AddBookScreen {...props} userData={userData} />}
-      </Stack.Screen>
+      </BookStack.Screen>
     </BookStack.Navigator>
   )
 }

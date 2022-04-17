@@ -1,10 +1,11 @@
-import * as React from 'react';
+import { React, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ScreenContainer from '../../components/ScreenContainer.js';
 import ScreenTitle from '../../components/ScreenTitle.js';
+import { firebase } from "../../firebase/config";
 
-export default function ProfileScreen({ navigation, props }) {
+export default function ProfileScreen({ navigation, userData, ...props }) {
     return (
       <SafeAreaView>
         <ScreenContainer>
@@ -14,9 +15,9 @@ export default function ProfileScreen({ navigation, props }) {
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.text}>Username</Text>
-            <Text style={styles.userText}>{props.username}</Text>
+            <Text style={styles.userText}>{userData.username}</Text>
             <Text style={styles.text}>Email</Text>
-            <Text style={styles.userText}>{props.email}</Text>
+            <Text style={styles.userText}>{userData.email}</Text>
           </View>
         </ScreenContainer>
       </SafeAreaView>
