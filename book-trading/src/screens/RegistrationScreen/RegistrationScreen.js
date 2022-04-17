@@ -53,7 +53,12 @@ export default function RegistrationScreen({navigation}) {
                     style={{ flex: 1, width: '100%' }}
                     keyboardShouldPersistTaps="always">
                     <Image
-                        style={styles.logo}
+                        style={{
+                            width: 120,
+                            height: 120,
+                            resizeMode: 'center',
+                            alignSelf: 'center'
+                        }}
                         source={require('../../../assets/icon.png')}
                     />
                     <TextInput
