@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { LoginScreen, HomeScreen, RegistrationScreen } from './src/screens'
@@ -76,9 +76,6 @@ export default function App() {
     return <AppLoading />;
   }
   
-  return <BookSearchScreen />;
-
- /*
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -99,7 +96,6 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-  */
 }
 
 const styles = StyleSheet.create({
