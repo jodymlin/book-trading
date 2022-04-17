@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, FlatList, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../components/ScreenContainer';
 import ScreenTitle from '../../components/ScreenTitle.js';
 import { Feather } from '@expo/vector-icons';
 import MyBookTile from '../../components/MyBookTile';
 import ItemDivider from '../../components/ItemDivider';
+import { firebase } from "../../firebase/config";
 
 const books = [
 
@@ -40,7 +41,18 @@ const books = [
   }
 ];
 
-function MyBooksScreen({ userData, navigation }) {
+function MyBooksScreen({navigation, userData, ...props}) {
+  let [ listings, setListings ] = useState([])
+  
+  useEffect(async () => {
+    const db = firebase.firestore()
+    const querySnapshot = await db.collection('listings').where("uid", "==", userData.uid).get();
+    const tempListings = []
+    querySnapshot.forEach(doc => {
+      tempListings.push(doc.data());
+    });
+    setListings(tempListings);
+  }, []);
   return (
     <ScreenContainer>
       <View
@@ -51,13 +63,13 @@ function MyBooksScreen({ userData, navigation }) {
       >
         <ScreenTitle>My Books</ScreenTitle>
         <TouchableOpacity
-          onPress={() => navigation.navigate('AddBook')}
+          onPress={() => {navigation.navigate('AddBook')}}
         >
           <Feather name="plus" size={32} color="black" />
         </TouchableOpacity>
       </View>
 
-      {books && books.length === 0 ? 
+      {listings && listings.length === 0 ? 
         <View
           style={styles.emptyListTextContainer}
         >
@@ -73,11 +85,11 @@ function MyBooksScreen({ userData, navigation }) {
         </View> : 
         <FlatList 
           showsVerticalScrollIndicator={false}
-          data={books}
-          keyExtractor={item => `${item.title}-${item.author}-${item.condition}`}
+          data={listings}
+          keyExtractor={item => item.lid}
           ItemSeparatorComponent={ItemDivider}
           renderItem={({item}) => <MyBookTile 
-            title={item.title}
+            title={item.bname}
             author={item.author}
             condition={item.condition}
           />}

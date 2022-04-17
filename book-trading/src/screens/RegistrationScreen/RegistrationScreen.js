@@ -48,8 +48,7 @@ export default function RegistrationScreen({navigation}) {
     }
 
     return (
-        <SafeAreaView>
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <KeyboardAwareScrollView
                     style={{ flex: 1, width: '100%' }}
                     keyboardShouldPersistTaps="always">
@@ -104,7 +103,6 @@ export default function RegistrationScreen({navigation}) {
                         <Text style={styles.footerText}>Already got an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
                     </View>
                 </KeyboardAwareScrollView>
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
     )
 }
